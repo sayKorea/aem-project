@@ -406,7 +406,7 @@ div.dataTables_wrapper { margin: 0 auto; }
 						<th>유형</th>
 						<th>HIDDEN URI</th>
 						<th>HIDDEN CANONICALLINK</th>
-					</tr>
+					</tr> 
 				</thead>
 			</table>
 			<table id="serviceTable" class="display" cellspacing="0" width="100%">
