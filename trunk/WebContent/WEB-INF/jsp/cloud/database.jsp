@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/include/taglibs.jsp"%>
-<!DOCTYPE html> 
-<html class="hidden"><head> 
+<!DOCTYPE html> <html class="hidden"> <head>
 <%@ include file="/WEB-INF/jsp/common/include/meta.jsp"%><!-- Meta -->
 <title>AZWELL CLOUD</title>
 <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
@@ -22,17 +21,26 @@
 <!-- <script type="text/javascript" language="javascript" src="http://datatables.net/release-datatables/extensions/AutoFill/js/dataTables.autoFill.js"></script> -->
 <!-- <script type="text/javascript" language="javascript" src="http://datatables.net/release-datatables/extensions/Scroller/js/dataTables.scroller.js"></script> -->
 <style>
-  .ui-tabs-vertical { width: 98%%; }
-  .ui-tabs-vertical .ui-tabs-nav { padding: .1em .1em .1em .1em; float: left; width: 15%; }
-  .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-  .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
-  .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
-  .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: left; width: 1em;}
-div.dataTables_wrapper {
-        margin: 0 auto;
-    }
+.ui-tabs-vertical { width: 98% %;V }
+.ui-tabs-vertical .ui-tabs-nav { padding: .1em .1em .1em .1em; float: left; width: 15%; }
+.ui-tabs-vertical .ui-tabs-nav li {
+	clear: left;
+	width: 100%;
+	border-bottom-width: 1px !important;
+	border-right-width: 0 !important;
+	margin: 0 -1px .2em 0;
+}
+.ui-tabs-vertical .ui-tabs-nav li a { display: block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+	padding-bottom: 0;
+	padding-right: .1em;
+	border-right-width: 1px;
+	border-right-width: 1px;
+}
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: left; width: 1em; }
+div.dataTables_wrapper { margin: 0 auto; }
 </style>
-		
+
 <script>
 	var databasePool, service, serviceProfile, quotas, popup, roleCnt;
 	var reservationSpinner, retirementSpinner, archiveFreqSpinner;
@@ -99,8 +107,6 @@ div.dataTables_wrapper {
 				            	, { "targets": [ 6 ], "visible": false, "searchable": false }
 				            ]
 	    });
-	    
-	    
 	    $('#serviceTable tbody').on( 'click', 'tr', function () {
 	    	var rowData = service.row( this ).data();
 	   		$.ajax({
@@ -282,147 +288,157 @@ div.dataTables_wrapper {
 		});	
 	}
 	
-	
   </script>
 </head>
 <body>
-<div id="tabs" style="display:none">
-	<ul>
-		<li><a href="#Pools">데이터베이스 풀</a></li>
-		<li><a href="#Request">요청 설정</a></li>
-		<li><a href="#Quotas">할당량</a></li>
-		<li><a href="#Templates">프로파일 및 서비스 템플릿</a></li>
-	    
-	</ul>
-	<div id="Pools" style="width:82%;">
-		<table id="databasePool" class="display" cellspacing="0" width="100%">
-			<h2>데이터베이스 풀</h2>
-			<p>데이터베이스 풀이란 셀프 서비스 사용자가 요청한 서비스 인스턴스를 프로비전하는 데 사용되는 Oracle 홈이나 데이터베이스 또는 컨테이너 데이터베이스의 동일 기종 모음입니다. 풀 내의 모든 엔티티는 동일한 버전과 플랫폼을 사용해야 하며, 동일한 PaaS 기반 구조 영역에 속해야 합니다.</p>
-	        <thead>
-		         <tr>
-	                <th>풀이름</th>
-	                <th>소유자</th>
-	                <th>PasS 기반 구조영역</th>
-	                <th>멤버 대상 유형</th>
-	                <th>대상</th>
-	                <th>설명</th>
-	                <th>HIDDEN URI</th>
-	                <th>HIDDEN CANONICALLINK</th>
-	            </tr>
-	        </thead>
-	    </table>
-  	</div>
-  	<div id="Request" style="width:82%;">
-  		<table id="requestTable" class="display" cellspacing="0" width="100%"> 
-  			<h2>요청 설정</h2> 
-			<fieldset>
-				<legend>이후 요청 일정 기간</legend>
-				<p>셀프 서비스 사용자가 미리 요청 일정을 잡을 수 있는 기간입니다.</p><br>
-				<input type="radio" id="reservationRadio" name="reservationRadio" value="1" checked>
-				<label for="reservationRadio">제한 없음</label><br>
-				<input type="radio" id="reservationRadio" name="reservationRadio" value="2"> 
-				<label for="reservationRadio">제한 기간</label>
-		      	<input id="reservationSpinner" name="reservationSpinner" style="width:20px">
-			    <select name="reservationSelect" id="reservationSelect">
-			    	<option value="Days" selected="selected" >일</option>
-			      	<option value="Weeks">주</option>
-			      	<option value="Months">개월</option>
-			      	<option value="Years">년</option>
-			    </select>
-		    </fieldset>
-		    <fieldset>
-				<legend>기본 보존 기간</legend>
-				<p>셀프 서비스 사용자가 서비스 인스턴스를 보존할 수 있는 최대 기간입니다.</p><br>
-				<input type="radio" id="retirementRadio" name="retirementRadio" value="1" checked>
-				<label for="retirementRadio">제한 없음</label><br>
-				<input type="radio" id="retirementRadio" name="retirementRadio" value="2"> 
-				<label for="retirementRadio">제한 기간</label>
-		      	<input id="retirementSpinner" name="retirementSpinner" style="width:20px">
-			    <select name="retirementSelect" id="retirementSelect">
-			    	<option value="Days" selected="selected" >일</option>
-			      	<option value="Weeks">주</option>
-			      	<option value="Months">개월</option>
-			      	<option value="Years">년</option>
-			    </select>
-		    </fieldset>
-		    <fieldset>
-				<legend>요청 비우기 기간</legend>
-				<p>셀프 서비스 생성 요청이 저장소에서 비워지는 '완료됨' 이후의 기간입니다.</p><br>
-				<input type="radio" id="archiveFreqRadio" name="archiveFreqRadio" value="1" checked>
-				<label for="archiveFreqRadio">제한 없음</label><br>
-				<input type="radio" id="archiveFreqRadio" name="archiveFreqRadio" value="2"> 
-				<label for="archiveFreqRadio">제한 기간</label>
-		      	<input id="archiveFreqSpinner" name="archiveFreqSpinner" style="width:20px">
-			    <select name="archiveFreqSelect" id="archiveFreqSelect">
-			    	<option value="Days" selected="selected" >일</option>
-			      	<option value="Weeks">주</option>
-			      	<option value="Months">개월</option>
-			      	<option value="Years">년</option>
-			    </select>
-		    </fieldset>
-  		</table>
-  	</div>
-  	<div id="Quotas" style="width:82%;">
-		<table id="quotasTable" class="display" cellspacing="0" width="100%">
-			<h2>할당량</h2>
-			<p>할당량은 제공된 롤에 속해 있는 셀프 서비스 사용자별로 계산되며, 사용자가 한번에 차지할 수 있는 리소스 양에 대한 집계입니다. 할당량은 셀프 서비스 응용 프로그램을 통해 프로비전되는 서비스 인스턴스에만 적용됩니다.</p>
-	        <thead>
-		         <tr>
-	                <th>롤이름</th>
-	                <th>메모리(GB)</th>
-	                <th>저장 영역(GB)</th>
-	                <th>데이터베이스 요청 수</th>
-	                <th>스키마 서비스 요청 수</th>
-	                <th>플러그 가능 데이터베이스 서비스 요청 수</th>
-	                <th>HIDDEN URI</th>
-	                <th>HIDDEN CANONICALLINK</th>
-	            </tr>
-	        </thead>
-	    </table>
-  	</div>
-  	<div id="Templates" style="width:82%;">
-	    <table id="serviceProfileTable" class="display" cellspacing="0" width="100%">
-	    	<h2>프로파일</h2>
-			<p>프로파일은 프로비전을 위해 소스 데이터베이스 정보를 캡처하는 엔티티입니다. 프로파일은 전체 데이터베이스를 나타내거나 응용 프로그램을 형성하는 관련 스키마 집합을 나타낼 수 있습니다.</p>
-	        <thead>
-	            <tr>
-	                <th>이름</th>
-	                <th>설명</th>
-	                <th>유형</th>
-	                <th>HIDDEN URI</th>
-	                <th>HIDDEN CANONICALLINK</th>
-	            </tr>
-	        </thead>
-	    </table>
-	    <table id="serviceTable" class="display" cellspacing="0" width="100%">
-	    	<h2>서비스 템플리트</h2>
-			<p>서비스 템플리트는 데이터베이스나 스키마를 생성하기 위해 셀프 서비스 사용자에게 제공되는 표준화된 서비스 정의입니다.</p>
-	        <thead>
-	            <tr>
-	                <th>서비스 템플리트 이름</th>
-	                <th>생성자</th>
-	                <th>영역</th>
-	                <th>롤</th>
-	                <th>설명</th>
-	                <th>HIDDEN URI</th>
-	                <th>HIDDEN CANONICALLINK</th>
-	            </tr>
-	        </thead>
-	 
-	<!--         <tfoot> -->
-	<!--             <tr> -->
-	<!--                 <th>Name</th> -->
-	<!--                 <th>Position</th> -->
-	<!--                 <th>Office</th> -->
-	<!--                 <th>Age</th> -->
-	<!--                 <th>Start date</th> -->
-	<!--                 <th>Salary</th> -->
-	<!--             </tr> -->
-	<!--         </tfoot> -->
-	 
-	    </table>
-  	</div>
-</div>
-<div id="templatesPopup" title=""> </div>
+	<div id="tabs" style="display: none">
+		<ul>
+			<li><a href="#Pools">데이터베이스 풀</a></li>
+			<li><a href="#Request">요청 설정</a></li>
+			<li><a href="#Quotas">할당량</a></li>
+			<li><a href="#Templates">프로파일 및 서비스 템플릿</a></li>
+
+		</ul>
+		<div id="Pools" style="width: 82%;">
+			<table id="databasePool" class="display" cellspacing="0" width="100%">
+				<h2>데이터베이스 풀</h2>
+				<p>데이터베이스 풀이란 셀프 서비스 사용자가 요청한 서비스 인스턴스를 프로비전하는 데 사용되는 Oracle 홈이나
+					데이터베이스 또는 컨테이너 데이터베이스의 동일 기종 모음입니다. 풀 내의 모든 엔티티는 동일한 버전과 플랫폼을 사용해야
+					하며, 동일한 PaaS 기반 구조 영역에 속해야 합니다.</p>
+				<thead>
+					<tr>
+						<th>풀이름</th>
+						<th>소유자</th>
+						<th>PasS 기반 구조영역</th>
+						<th>멤버 대상 유형</th>
+						<th>대상</th>
+						<th>설명</th>
+						<th>HIDDEN URI</th>
+						<th>HIDDEN CANONICALLINK</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div id="Request" style="width: 82%;">
+			<table id="requestTable" class="display" cellspacing="0" width="100%">
+				<h2>요청 설정</h2>
+				<fieldset>
+					<legend>이후 요청 일정 기간</legend>
+					<p>셀프 서비스 사용자가 미리 요청 일정을 잡을 수 있는 기간입니다.</p>
+					<br> <input type="radio" id="reservationRadio"
+						name="reservationRadio" value="1" checked> <label
+						for="reservationRadio">제한 없음</label><br> <input type="radio"
+						id="reservationRadio" name="reservationRadio" value="2"> <label
+						for="reservationRadio">제한 기간</label> <input
+						id="reservationSpinner" name="reservationSpinner"
+						style="width: 20px"> <select name="reservationSelect"
+						id="reservationSelect">
+						<option value="Days" selected="selected">일</option>
+						<option value="Weeks">주</option>
+						<option value="Months">개월</option>
+						<option value="Years">년</option>
+					</select>
+				</fieldset>
+				<fieldset>
+					<legend>기본 보존 기간</legend>
+					<p>셀프 서비스 사용자가 서비스 인스턴스를 보존할 수 있는 최대 기간입니다.</p>
+					<br> <input type="radio" id="retirementRadio"
+						name="retirementRadio" value="1" checked> <label
+						for="retirementRadio">제한 없음</label><br> <input type="radio"
+						id="retirementRadio" name="retirementRadio" value="2"> <label
+						for="retirementRadio">제한 기간</label> <input id="retirementSpinner"
+						name="retirementSpinner" style="width: 20px"> <select
+						name="retirementSelect" id="retirementSelect">
+						<option value="Days" selected="selected">일</option>
+						<option value="Weeks">주</option>
+						<option value="Months">개월</option>
+						<option value="Years">년</option>
+					</select>
+				</fieldset>
+				<fieldset>
+					<legend>요청 비우기 기간</legend>
+					<p>셀프 서비스 생성 요청이 저장소에서 비워지는 '완료됨' 이후의 기간입니다.</p>
+					<br> <input type="radio" id="archiveFreqRadio"
+						name="archiveFreqRadio" value="1" checked> <label
+						for="archiveFreqRadio">제한 없음</label><br> <input type="radio"
+						id="archiveFreqRadio" name="archiveFreqRadio" value="2"> <label
+						for="archiveFreqRadio">제한 기간</label> <input
+						id="archiveFreqSpinner" name="archiveFreqSpinner"
+						style="width: 20px"> <select name="archiveFreqSelect"
+						id="archiveFreqSelect">
+						<option value="Days" selected="selected">일</option>
+						<option value="Weeks">주</option>
+						<option value="Months">개월</option>
+						<option value="Years">년</option>
+					</select>
+				</fieldset>
+			</table>
+		</div>
+		<div id="Quotas" style="width: 82%;">
+			<table id="quotasTable" class="display" cellspacing="0" width="100%">
+				<h2>할당량</h2>
+				<p>할당량은 제공된 롤에 속해 있는 셀프 서비스 사용자별로 계산되며, 사용자가 한번에 차지할 수 있는 리소스 양에
+					대한 집계입니다. 할당량은 셀프 서비스 응용 프로그램을 통해 프로비전되는 서비스 인스턴스에만 적용됩니다.</p>
+				<thead>
+					<tr>
+						<th>롤이름</th>
+						<th>메모리(GB)</th>
+						<th>저장 영역(GB)</th>
+						<th>데이터베이스 요청 수</th>
+						<th>스키마 서비스 요청 수</th>
+						<th>플러그 가능 데이터베이스 서비스 요청 수</th>
+						<th>HIDDEN URI</th>
+						<th>HIDDEN CANONICALLINK</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div id="Templates" style="width: 82%;">
+			<table id="serviceProfileTable" class="display" cellspacing="0"
+				width="100%">
+				<h2>프로파일</h2>
+				<p>프로파일은 프로비전을 위해 소스 데이터베이스 정보를 캡처하는 엔티티입니다. 프로파일은 전체 데이터베이스를
+					나타내거나 응용 프로그램을 형성하는 관련 스키마 집합을 나타낼 수 있습니다.</p>
+				<thead>
+					<tr>
+						<th>이름</th>
+						<th>설명</th>
+						<th>유형</th>
+						<th>HIDDEN URI</th>
+						<th>HIDDEN CANONICALLINK</th>
+					</tr>
+				</thead>
+			</table>
+			<table id="serviceTable" class="display" cellspacing="0" width="100%">
+				<h2>서비스 템플리트</h2>
+				<p>서비스 템플리트는 데이터베이스나 스키마를 생성하기 위해 셀프 서비스 사용자에게 제공되는 표준화된 서비스
+					정의입니다.</p>
+				<thead>
+					<tr>
+						<th>서비스 템플리트 이름</th>
+						<th>생성자</th>
+						<th>영역</th>
+						<th>롤</th>
+						<th>설명</th>
+						<th>HIDDEN URI</th>
+						<th>HIDDEN CANONICALLINK</th>
+					</tr>
+				</thead>
+
+				<!--         <tfoot> -->
+				<!--             <tr> -->
+				<!--                 <th>Name</th> -->
+				<!--                 <th>Position</th> -->
+				<!--                 <th>Office</th> -->
+				<!--                 <th>Age</th> -->
+				<!--                 <th>Start date</th> -->
+				<!--                 <th>Salary</th> -->
+				<!--             </tr> -->
+				<!--         </tfoot> -->
+
+			</table>
+		</div>
+	</div>
+	<div id="templatesPopup" title=""></div>
 </body>
 </html>
