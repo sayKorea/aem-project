@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+							http://www.springframework.org/schema/tx 	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+							http://www.springframework.org/schema/util 	http://www.springframework.org/schema/util/spring-util-3.0.xsd
+							http://www.springframework.org/schema/jee 	http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+							http://www.springframework.org/schema/aop 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- <util:properties id="contextProperties" location="classpath:dbContext.properties"/> -->
+
+	<!-- property -->
+<!-- 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> -->
+<!-- 		<property name="location" value="classpath:dbContext.properties" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">  -->
+<!-- 		<property name="jndiName" 		value="pth"/>  -->
+<!-- 		<property name="resourceRef" 	value="true"/>  -->
+<!-- 	</bean>  -->
+<!-- 		<bean id="dataSourceOther" class="org.springframework.jndi.JndiObjectFactoryBean">  -->
+<!-- 		<property name="jndiName" 		value="other"/>  -->
+<!-- 		<property name="resourceRef" 	value="true"/>  -->
+<!-- 	</bean>  -->
+
+	
+
+	<!-- datasource pooled commons -->
+<!-- 	<bean id="phtJeusDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!-- 		<property name="driverClassName"> 	<value>${hr.driver}</value> 		</property> -->
+<!-- 		<property name="url"> 				<value>${hr.url}</value> 			</property> -->
+<!-- 		<property name="username"> 			<value>${hr.username}</value> 		</property> -->
+<!-- 		<property name="password"> 			<value>${hr.password}</value> 		</property> -->
+<!-- 		<property name="initialSize"> 		<value>${hr.initialSize}</value> 	</property> -->
+<!-- 		<property name="maxActive"> 		<value>${hr.maxActive}</value> 		</property> -->
+<!-- 		<property name="maxIdle"> 			<value>${hr.maxIdle}</value> 		</property> -->
+<!-- 	</bean> -->
+	<!-- transaction manager -->
+<!-- 	<bean id="phrTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!-- 		<property name="dataSource" ref="phtJeusDataSource" /> -->
+<!-- 	</bean> -->
+
+	<!-- datasource pooled commons -->
+<!-- 	<bean id="proJeusDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!-- 		<property name="driverClassName"> 	<value>${pro.driver}</value> 		</property> -->
+<!-- 		<property name="url"> 				<value>${pro.url}</value> 			</property> -->
+<!-- 		<property name="username"> 			<value>${pro.username}</value> 		</property> -->
+<!-- 		<property name="password"> 			<value>${pro.password}</value> 		</property> -->
+<!-- 		<property name="initialSize"> 		<value>${pro.initialSize}</value> 	</property> -->
+<!-- 		<property name="maxActive"> 		<value>${pro.maxActive}</value> 	</property> -->
+<!-- 		<property name="maxIdle"> 			<value>${pro.maxIdle}</value> 		</property> -->
+<!-- 	</bean> -->
+	<!-- transaction manager -->
+<!-- 	<bean id="proTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!-- 		<property name="dataSource" ref="proJeusDataSource" /> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="recJeusDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!-- 		<property name="driverClassName"> 	<value>${hi.driver}</value> 		</property> -->
+<!-- 		<property name="url"> 				<value>${hi.url}</value> 			</property> -->
+<!-- 		<property name="username"> 			<value>${hi.username}</value> 		</property> -->
+<!-- 		<property name="password"> 			<value>${hi.password}</value> 		</property> -->
+<!-- 		<property name="initialSize"> 		<value>${hi.initialSize}</value> 	</property> -->
+<!-- 		<property name="maxActive"> 		<value>${hi.maxActive}</value> 		</property> -->
+<!-- 		<property name="maxIdle"> 			<value>${hi.maxIdle}</value> 		</property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="recTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  -->
+<!-- 		<property name="dataSource" ref="recJeusDataSource"/>  -->
+<!-- 	</bean> -->
+
+
+
+	<!-- NativeJdbcExtractor -->
+<!-- 	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor" lazy-init="true" /> -->
+
+	<!-- LobHandler for Oracle JDBC drivers -->
+<!-- 	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true"> -->
+<!-- 		<property name="nativeJdbcExtractor"> <ref local="nativeJdbcExtractor" /> </property> -->
+<!-- 	</bean> -->
+
+	
+
+
+
+
+<!-- <bean id="dataSourceJeus" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+	<!-- <property name="jndiName" value="pth" /> -->
+	<!-- <property name="resourceRef" value="true" /> -->
+	<!-- </bean> -->
+	<!-- HR DB 설정 -->
+	<!-- <bean id="hrDataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> -->
+	<!-- <property name="driverClassName"> <value>${hr.driver}</value></property> -->
+	<!-- <property name="url"> <value>${hr.url}</value></property> -->
+	<!-- <property name="username"> <value>${hr.username}</value></property> -->
+	<!-- <property name="password"> <value>${hr.password}</value></property> -->
+	<!-- </bean> -->
+
+	<!-- <bean id="hrTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+	<!-- <property name="dataSource" ref="hrDataSource"/> -->
+	<!-- </bean> -->
+
+	<!-- <bean id="dataSourceNormal" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+	<!-- <property name="driverClassName"> <value>${hr.driver}</value></property> -->
+	<!-- <property name="url"> <value>${hr.url}</value></property> -->
+	<!-- <property name="username"> <value>${hr.username}</value></property> -->
+	<!-- <property name="password"> <value>${hr.password}</value></property> -->
+	<!-- </bean> -->
+
+	<!-- datasource single -->
+	<!-- <bean id="dataSourceSingle" class="org.springframework.jdbc.datasource.SingleConnectionDataSource"> -->
+	<!-- <property name="driverClassName"> <value>${hr.driver}</value></property> -->
+	<!-- <property name="url"> <value>${hr.url}</value></property> -->
+	<!-- <property name="username"> <value>${hr.username}</value></property> -->
+	<!-- <property name="password"> <value>${hr.password}</value></property> -->
+	<!-- </bean> -->
+
+	<!-- 외부 DB Connection 끝 -->
+
+	<!-- 로컬 환경 Datasource 설정 End -->
+
+
+	<!-- 서버 환경 Datasource 설정 Start -->
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName" value="pth"/> <property name="resourceRef" value="true"/> 
+		</bean> <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="dataSource"/> </bean> -->
+	<!-- 외부 DB Connection 시작 -->
+	<!-- <bean id="edsDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName" value="EDS"/> 
+		<property name="resourceRef" value="true"/> 
+		</bean> 
+		<bean id="esdTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="edsDataSource"/> 
+		</bean> 
+		<bean id="pmcosDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName"  value="PMCOS"/> <property name="resourceRef" value="true"/> </bean> <bean 
+		id="pmcosTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="pmcosDataSource"/> </bean> <bean id="ymcsDataSource" 
+		class="org.springframework.jndi.JndiObjectFactoryBean"> <property name="jndiName" 
+		value="YMCS"/> <property name="resourceRef" value="true"/> </bean> <bean 
+		id="ymcsTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="ymcsDataSource"/> </bean> <bean id="omsDataSource" 
+		class="org.springframework.jndi.JndiObjectFactoryBean"> <property name="jndiName" 
+		value="OMS"/> <property name="resourceRef" value="true"/> </bean> <bean id="omsTransactionManager" 
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="omsDataSource"/> </bean> <bean id="fabDataSource" 
+		class="org.springframework.jndi.JndiObjectFactoryBean"> <property name="jndiName" 
+		value="FAB"/> <property name="resourceRef" value="true"/> </bean> <bean id="fabTransactionManager" 
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="fabDataSource"/> </bean> <bean id="sess1DataSource" 
+		class="org.springframework.jndi.JndiObjectFactoryBean"> <property name="jndiName" 
+		value="SESS1"/> <property name="resourceRef" value="true"/> </bean> <bean 
+		id="sess1TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="sess1DataSource"/> </bean> <bean id="sess2DataSource" 
+		class="org.springframework.jndi.JndiObjectFactoryBean"> <property name="jndiName" 
+		value="SESS2"/> <property name="resourceRef" value="true"/> </bean> <bean 
+		id="sess2TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="sess2DataSource"/> </bean> -->
+	<!-- 외부 DB Connection 끝 -->
+
+	<!-- 서버 환경 Datasource 설정 End -->
+
+
+
+<!-- HR Transaction Manager -->
+<!-- 	<tx:advice id="phrTxAdvice" transaction-manager="phrTransactionManager"> -->
+<!-- 		<tx:attributes> -->
+<!-- 			<tx:method name="*" rollback-for="Exception" propagation="REQUIRED" isolation="DEFAULT" timeout="1000" /> -->
+<!-- 		</tx:attributes> -->
+<!-- 	</tx:advice> -->
+
+<!-- PRO Transaction Manager -->
+<!-- 	<tx:advice id="proTxAdvice" transaction-manager="proTransactionManager"> -->
+<!-- 		<tx:attributes> -->
+<!-- 			<tx:method name="*" rollback-for="Exception" propagation="REQUIRED"	isolation="DEFAULT" timeout="1000" /> -->
+<!-- 		</tx:attributes> -->
+<!-- 	</tx:advice> -->
+	
+<!-- REC Transaction Manager -->
+<!-- 	<tx:advice id="recTxAdvice" transaction-manager="recTransactionManager"> -->
+<!-- 		<tx:attributes> -->
+<!-- 			<tx:method name="*" rollback-for="Exception" propagation="REQUIRED" -->
+<!-- 				isolation="DEFAULT" timeout="1000" /> -->
+<!-- 		</tx:attributes> -->
+<!-- 	</tx:advice> -->
+
+	
+	
+<!-- 	<aop:config> -->
+<!-- 		<aop:pointcut id="phrServiceRequiredTx" expression="execution(* *..*Service.*(..))" /> -->
+<!-- 		<aop:advisor advice-ref="phrTxAdvice" order="1" pointcut-ref="phrServiceRequiredTx" /> -->
+<!-- 	</aop:config> -->
+<!-- 	<aop:config> -->
+<!-- 		<aop:pointcut id="proServiceRequiredTx" expression="execution(* *..*Service.*(..))" /> -->
+<!-- 		<aop:advisor advice-ref="proTxAdvice" order="1" pointcut-ref="proServiceRequiredTx" /> -->
+<!-- 	</aop:config> -->
+<!-- 	<aop:config> -->
+<!-- 		<aop:pointcut id="recServiceRequiredTx" expression="execution(* *..*Service.*(..))" /> -->
+<!-- 		<aop:advisor advice-ref="recTxAdvice" order="1" pointcut-ref="recServiceRequiredTx" /> -->
+<!-- 	</aop:config> -->
+</beans>
