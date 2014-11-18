@@ -405,7 +405,7 @@ div.dataTables_wrapper { margin: 0 auto; }
 						<th>설명</th>
 						<th>유형</th>
 						<th>HIDDEN URI</th>
-						<th>HIDDEN CANONICALLINK</th>
+						<th>HIDDEN CANONICALLINK</th> 
 					</tr> 
 				</thead>
 			</table>
