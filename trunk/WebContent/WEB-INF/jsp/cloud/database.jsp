@@ -412,7 +412,7 @@ div.dataTables_wrapper { margin: 0 auto; }
 			<table id="serviceTable" class="display" cellspacing="0" width="100%">
 				<h2>서비스 템플리트</h2>
 				<p>서비스 템플리트는 데이터베이스나 스키마를 생성하기 위해 셀프 서비스 사용자에게 제공되는 표준화된 서비스
-					정의입니다.</p>
+					정의입니다.</p> 
 				<thead>
 					<tr>
 						<th>서비스 템플리트 이름</th>
