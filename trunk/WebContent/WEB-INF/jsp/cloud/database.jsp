@@ -55,7 +55,7 @@ div.dataTables_wrapper { margin: 0 auto; }
 	$(function() {
 		reservationSpinner = $( "#reservationSpinner" ).spinner(); 	reservationSpinner.spinner( { min: 1,start: 1} );	reservationSpinner.spinner( "disable" ); 
 		retirementSpinner = $( "#retirementSpinner" ).spinner(); 	retirementSpinner.spinner( { min: 1,start: 1} );	retirementSpinner.spinner( "disable" );
-		archiveFreqSpinner= $( "#archiveFreqSpinner" ).spinner(); 	archiveFreqSpinner.spinner( { min: 1,start: 1});	archiveFreqSpinner.spinner( "disable" );
+		archiveFreqSpinner= $( "#archiveFreqSpinner" ).spinner(); 	archiveFreqSpinner.spinner( { min: 1,start:1});	archiveFreqSpinner.spinner( "disable" );
 		
 		$("#Request select").prop("disabled",true);
 		
@@ -129,15 +129,15 @@ div.dataTables_wrapper { margin: 0 auto; }
 	    } );
 	    
 	    
-	    popup = $( "#templatesPopup" ).dialog({
-	    	autoOpen: false,
-	        height: 400,
-	        width: 600,
-	        modal: true,
-	        buttons: {
-	          "Close": function() { $( this ).dialog( "close" ); }
-	        }
-		});
+// 	    popup = $( "#templatesPopup" ).dialog({
+// 	    	autoOpen: false,
+// 	        height: 400,
+// 	        width: 600,
+// 	        modal: true,
+// 	        buttons: {
+// 	          "Close": function() { $( this ).dialog( "close" ); }
+// 	        }
+// 		});
 	    
 // 	    new $.fn.dataTable.AutoFill( databasePool );
 // 	    new $.fn.dataTable.AutoFill( service );
@@ -153,7 +153,6 @@ div.dataTables_wrapper { margin: 0 auto; }
 	    
 	    $("#logout").button();
 	    $("#logout").click(function(){
-	    	alert(1);
 	    	$.ajax({
 				url 		: "/em/logout.do", type 		: "post", dataType 	: "json", async 		: false,
 				success : function(rv) {
@@ -261,42 +260,29 @@ div.dataTables_wrapper { margin: 0 auto; }
 	
 	function serviceTemplateAPI(){
 		var creator="";
-		var url = "em/cloud/service_family_type/dbaas";
+		var url = "em/websvcs/restful/extws/cloudservices/admin/cfw/v1/servicetemplates/";
 		$.ajax({
 			url 		: "/em/search.do", type 		: "post", dataType 	: "json", async 		: false, data 		: "cmd="+url,
 			success : function(rv1) {
 				var rv1Data = eval("("+rv1.DATA+")");
 				var zonesCount;
-				for(i=0; i<rv1Data.service_templates.elements.length; i++){
-// 					rowText = "";
-// 					rowText += "<tr>";
-// 					rowText += "<td>"+dt.service_templates.elements[i].name+"</td>";
-// 					rowText += "<td>"+"</td>";
-// 					rowText += "<td>"+"</td>";
-// 					rowText += "<td>"+"</td>";
-// 					rowText += "<td>"+dt.service_templates.elements[i].description+"</td>";
-// 					rowText += "</tr>";
+				for(i=0; i<rv1Data.items.length; i++){
 					$.ajax({
-						url 		: "/em/search.do",
-						type 		: "post",
-						dataType 	: "json",
-						async 		: false,
-						data 		: "cmd="+rv1Data.service_templates.elements[i].uri,
+						url 		: "/em/search.do", type 		: "post", dataType 	: "json", async 		: false,
+						data 		: "cmd="+url+rv1Data.items[i].id,
 						success : function(rv2) {
 							var rv2Data = eval("("+rv2.DATA+")");
-							zonesCount = rv2Data.zones.total;
+							service.row.add([
+								  rv2Data.name
+								, rv2Data.owner
+								, rv2Data.pools.length
+								, rv2Data.roles.length
+								, rv2Data.description
+								, url+rv1Data.items[i].id
+								, rv2Data.id
+							]);
 						}, error : function(jqXHR, ajaxSettings, thrownError) { }
 					});
-				
-					service.row.add([
-						  rv1Data.service_templates.elements[i].name
-						, creator
-						, zonesCount
-						, ""
-						, rv1Data.service_templates.elements[i].description
-						, rv1Data.service_templates.elements[i].uri
-						, rv1Data.service_templates.elements[i].canonicalLink
-					]);
 				}
 			}, error : function(jqXHR, ajaxSettings, thrownError) {
 				//ajaxJsonErrorAlert(jqXHR, ajaxSettings, thrownError);

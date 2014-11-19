@@ -216,6 +216,11 @@ public class EMController {
         Log.Debug("==== SEARCH UI START ====");
         return "template/searchEM";
     }
+    @RequestMapping(value={"/em/test/searchDepthView.do"})
+    public String searchDepthView(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Log.Debug("==== SEARCH DEPTH UI START ====");
+        return "template/searchDepthEM";
+    }
 
     @RequestMapping(value={"/em/cloud/databaseView.do"})
     public String searchEmi(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {

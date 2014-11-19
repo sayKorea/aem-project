@@ -171,6 +171,8 @@ input[type=text]:hover,input[type=password]:hover,label:hover  ~ input[type=text
 			    validation();
 			}
 		});
+		
+		$("#userid").focus();
 	});
 	function validation(){
 		if( $.trim($("#userid").val()) == ""){
