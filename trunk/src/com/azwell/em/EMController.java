@@ -15,6 +15,7 @@ import javax.net.ssl.SSLSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.util.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,22 +32,41 @@ import com.azwell.common.logger.Log;
  */
 @Controller
 public class EMController {
-	static final String FIX_URL = "https://210.127.39.181:7799/";
-	static final String FIX_INIT_CMD = "em/cloud/";
+	static final String FIX_URL 		= "https://210.127.39.181:7799/";
+	static final String FIX_INIT_CMD 	= "em/cloud/";
+	static final String FIX_KEY 		= "Authorization";
+	static final String FIX_KEY_BASIC 	= "basic";
+	
+	private static String loginId="";
+	private static String password="";
 	private static HttpsURLConnection httpsCon = null;
 
-	private static boolean initHttpsConnect() {
+	private static boolean loginCheck(HttpServletResponse response) {
 //        Log.Debug("==== HTTPS API INITIALIZE START ====");
-        if (Cookie.isInit()) {
+		String loginVal = loginId+":"+password;
+		String ba64Chg = Base64.encode(loginVal.getBytes());
+		
+		if(loginId.equals("") || password.equals("")){
+			try {
+	        	Log.Debug("Redirect");
+				response.sendRedirect("/em/loginView.do");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
+		
+		Log.Debug(loginVal+" KEY VALUE : "+ba64Chg);
+        if (Cookie.isLogin()) {
             return true;
         }
         URL url = null;
         try {
             url = new URL(FIX_URL+FIX_INIT_CMD);
             EMController.httpsCon = (HttpsURLConnection)url.openConnection();
-            EMController.httpsCon.setRequestProperty("Authorization", "basic c3lzbWFuOmRwd21kbnBmZW0=");
+            EMController.httpsCon.setRequestProperty("Authorization", "basic "+ba64Chg );//c3lzbWFuOmRwd21kbnBmZW0=
             EMController.httpsCon.setHostnameVerifier(new HostnameVerifier(){
-
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
                     return true;
@@ -56,7 +76,7 @@ public class EMController {
             Log.Debug("====" + EMController.httpsCon.getHeaderFields().toString());
             Cookie.setCookie(EMController.httpsCon.getHeaderField("Set-Cookie"));
             if (!Cookie.getCookie().equals("")) {
-                Cookie.setInit(true);
+                Cookie.setLogin(true);
                 return true;
             }
         }catch (MalformedURLException e) {
@@ -65,12 +85,19 @@ public class EMController {
         catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+        	Log.Debug("Redirect");
+			response.sendRedirect("/em/loginView.do");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //        Log.Debug("==== HTTPS API INITIALIZE END ====");
         return false;
     }
 	private static String getHttpsCall(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Log.Debug("==== HTTPS API CALL START ====");
-        EMController.initHttpsConnect();
+        EMController.loginCheck(response);
         String cmd = (String)paramMap.get("cmd");
         URL url = new URL(FIX_URL + cmd);
 //        Log.Debug("####### LOCAL COOKIE : " + Cookie.getCookie());
@@ -143,13 +170,47 @@ public class EMController {
     public ModelAndView search(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Log.Debug("==== EMI TOS START ====");
         String resutlApiStr = EMController.getHttpsCall(paramMap, request, response);
-        Log.Debug("==== EMI TOS END ====");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("jsonView");
-        mav.addObject("DATA", (Object)resutlApiStr);
+        mav.addObject("DATA", resutlApiStr);
+        Log.Debug("==== EMI TOS END ====");
         return mav;
     }
-
+    @RequestMapping(value={"/em/login.do"})
+    public ModelAndView login(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Log.Debug("==== LOGIN START ====");
+        loginId = (String) paramMap.get("userid");
+        password = (String) paramMap.get("password");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("jsonView");
+        if(loginCheck(response)){
+        	mav.addObject("DATA", "Login Success");
+        	mav.addObject("URL", "/em/cloud/databaseView.do");
+        	
+        }else{
+        	mav.addObject("DATA", "Login Fail");
+        }
+        Log.Debug("==== LOGIN END ====");
+        return mav;
+    }
+    @RequestMapping(value={"/em/logout.do"})
+    public ModelAndView logout(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Log.Debug("==== LOGOUT START ====");
+        loginId = "";
+        password = "";
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("jsonView");
+        mav.addObject("DATA", "Logout Success");
+        mav.addObject("URL", "/em/loginView.do");
+        Log.Debug("==== LOGOUT END ====");
+        return mav;
+    }
+    @RequestMapping(value={"/em/loginView.do"})
+    public String loginView(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Log.Debug("==== LOGIN UI START ====");
+        return "login";
+    }
+    
     @RequestMapping(value={"/em/test/searchView.do"})
     public String searchView(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Log.Debug("==== SEARCH UI START ====");
