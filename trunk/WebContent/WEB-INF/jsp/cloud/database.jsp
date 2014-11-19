@@ -41,9 +41,16 @@
 div.dataTables_wrapper { margin: 0 auto; }
 </style>
 
-<script>
+<script type="text/javascript">
 	var databasePool, service, serviceProfile, quotas, popup, roleCnt;
 	var reservationSpinner, retirementSpinner, archiveFreqSpinner;
+	
+	$(document).bind('ajaxComplete', function(event, xhr, options) {
+	    var redirectHeader = xhr.getResponseHeader('Location');
+	    if(xhr.readyState == 4 && redirectHeader != null) {
+	        window.location.href = redirectHeader;
+	    }
+	});
 	
 	$(function() {
 		reservationSpinner = $( "#reservationSpinner" ).spinner(); 	reservationSpinner.spinner( { min: 1,start: 1} );	reservationSpinner.spinner( "disable" ); 
@@ -143,6 +150,17 @@ div.dataTables_wrapper { margin: 0 auto; }
 	    serviceTemplateAPI();
 	    
 	    $( "#tabs" ).show( "drop", {percent: 100}, 500 );
+	    
+	    $("#logout").button();
+	    $("#logout").click(function(){
+	    	alert(1);
+	    	$.ajax({
+				url 		: "/em/logout.do", type 		: "post", dataType 	: "json", async 		: false,
+				success : function(rv) {
+					$(location).attr("href",rv.URL);
+				}, error : function(jqXHR, ajaxSettings, thrownError) { }
+			});
+	    });
   	});
 	
 	function databasePoolAPI(){
@@ -291,6 +309,9 @@ div.dataTables_wrapper { margin: 0 auto; }
   </script>
 </head>
 <body>
+	<div >
+		<button id="logout">Logout</button>
+	</div>
 	<div id="tabs" style="display: none">
 		<ul>
 			<li><a href="#Pools">데이터베이스 풀</a></li>
