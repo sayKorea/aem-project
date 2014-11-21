@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:query="http://www.anyframejava.org/schema/query"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.anyframejava.org/schema/query 	http://www.anyframejava.org/schema/query/anyframe-query-1.0.xsd">
+	
+<!-- 	<query:auto-config sqlLoader-ref="sqlLoader" dbType="oracle" id="queryService" dataSource-ref="phtJeusDataSource"/> -->
+<!-- 	<query:auto-config sqlLoader-ref="sqlLoader" dbType="oracle" id="proQueryService" dataSource-ref="proJeusDataSource"/> -->
+<!-- 	<query:auto-config sqlLoader-ref="sqlLoader" dbType="oracle" id="recQueryService" dataSource-ref="recJeusDataSource"/> -->
+	
+<!-- 	<bean name="sqlLoader" class="org.anyframe.query.impl.config.loader.SQLLoader"> -->
+<!-- 		<property name="mappingFiles"> -->
+<!-- 			<value> -->
+<!--   		    	classpath*:/com/azwell/**/*-mapping-query.xml -->
+<!-- 			</value> -->
+<!-- 		</property>	 -->
+<!-- 		<property name="nullchecks"> -->
+<!-- 			<map> -->
+<!-- 			    key: type, value: default-value -->
+<!-- 		    	<entry key="VARCHAR" value=""/> -->
+<!-- 		    </map> -->
+<!-- 		</property> -->
+<!--  		<property name="dynamicReload" value="5000" />	     -->
+<!-- 		<property name="skipError" value="true" /> -->
+<!-- 	</bean> -->
+</beans>	
