@@ -19,8 +19,6 @@
 [data-shape=Rectangle] {
     width:210px;
     height:70px;
-    left:380px;
-    top:505px;
     line-height: 70px;
     background-image:url(/common/images/rectangle.png);
 }
@@ -28,8 +26,6 @@
 [data-shape=Ellipse] {
     width:210px;
     height:70px;
-    left:250px;
-    top:300px;
     line-height: 70px;
     background-image:url(/common/images/ellipse.png);
 }
@@ -37,8 +33,6 @@
 [data-shape=Circle] {
     width:150px;
     height:150px;
-    left:100px;
-    top:60px;
     line-height: 150px;
     background-image:url(/common/images/circle.png);
 }
@@ -60,8 +54,6 @@
 [data-shape=Diamond] {
     width:150px;
     height:150px;
-    left:550px;
-    top:150px;
     line-height: 150px;
     background-image:url(/common/images/diamond.png);
 }
