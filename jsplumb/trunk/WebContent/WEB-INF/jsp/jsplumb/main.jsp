@@ -21,8 +21,8 @@
 <script type="text/javascript" src="http://www.guriddo.net/demo/js/trirand/i18n/grid.locale-en.js"></script>
 <script type="text/javascript" src="http://www.guriddo.net/demo/js/prettify/prettify.js"></script>
 
-<script type="text/javascript" src="/common/js/jquery.ui.touch-punch.min.js"></script>
-<script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/common/js/jquery.ui.touch-punch.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="/common/js/jsBezier-0.6.js"></script>
 <script type="text/javascript" src="/common/js/jsplumb-geom-0.1.js"></script>
 <script type="text/javascript" src="/common/js/util.js"></script>
@@ -32,10 +32,14 @@
 <script type="text/javascript" src="/common/js/connection.js"></script>
 <script type="text/javascript" src="/common/js/anchors.js"></script>
 <script type="text/javascript" src="/common/js/defaults.js"></script>
-<script type="text/javascript" src="/common/js/connectors-bezier.js"></script>
+
+<!-- 연결선 종류-->
+<!-- <script type="text/javascript" src="/common/js/connectors-bezier.js"></script> -->
 <script type="text/javascript" src="/common/js/connectors-statemachine.js"></script>
-<script type="text/javascript" src="/common/js/connectors-flowchart.js"></script>
-<script type="text/javascript" src="/common/js/connector-editors.js"></script>
+<!-- <script type="text/javascript" src="/common/js/connectors-flowchart.js"></script> -->
+<!-- <script type="text/javascript" src="/common/js/connector-editors.js"></script> -->
+
+<!-- 화면그리는부분 -->
 <script type="text/javascript" src="/common/js/renderers-svg.js"></script>
 <script type="text/javascript" src="/common/js/renderers-canvas.js"></script>
 <script type="text/javascript" src="/common/js/renderers-vml.js"></script>
@@ -87,10 +91,12 @@
 	    }); 
   	});
 	
+	
 	//JSPLUMB 스크립트 부분
 	jsPlumb.ready(function() {
 		var instance = jsPlumb.getInstance({
 			Connector:"StateMachine",
+// 			Connector:"Flowchart",
 			PaintStyle:{ lineWidth:3, strokeStyle:"#ffa500", "dashstyle":"2 4" },
 			Endpoint:[ "Dot", { radius:5 } ],
 			EndpointStyle:{ fillStyle:"#ffa500" },
@@ -100,7 +106,7 @@
 		var shapes = jsPlumb.getSelector(".shape");			
 		instance.draggable(shapes);
 		  
-		instance.doWhileSuspended(function() {			
+		instance.doWhileSuspended(function() {	
 			for (var i = 0; i < shapes.length; i++) {
 				for (var j = i + 1; j < shapes.length; j++) {						
 					instance.connect({
@@ -115,6 +121,7 @@
 			}   
 		});
   	});
+	
   </script>
 </head>
 <body data-demo-id="flowchart" data-library="jquery">
@@ -122,12 +129,14 @@
 	<div id="jqGridPager"></div>
 	<div id="main" title="JSPLUMB POPUP">
 		<div id="perimeter-demo">
-			<div class="shape" 		data-shape="Rectangle">Rectangle</div>
-			<div class="shape" 		data-shape="Ellipse">Ellipse</div>
-			<div class="shape" 		data-shape="Circle">Circle</div>
-			<div class="shape" 		data-shape="Diamond">Diamond</div>
-			<div class="shape" 		data-shape="Triangle" style="left: 700px; top: 380px;">Triangle</div>
-			<div class="shape _90" 	data-shape="Triangle" data-rotation="90" style="left: 60px; top: 500px;">90&#176; rotation</div>
+			<div class="shape" 		data-shape="Rectangle" 	style="left:380px;top:505px;">START</div>
+			<div class="shape" 		data-shape="Ellipse" 	style="left:250px;top:300px;">Ellipse</div>
+			<div class="shape" 		data-shape="Circle" 	style="left:100px;top:60px;">Circle</div>
+			<div class="shape" 		data-shape="Circle" 	style="left:400px;top:150px;">QUESTION</div>
+			<div class="shape" 		data-shape="Diamond" 	style="left:550px;top:150px;">CHOICE</div>
+			<div class="shape" 		data-shape="Diamond" 	style="left:150px;top:250px;">CHECK</div>
+			<div class="shape" 		data-shape="Triangle" 	style="left:700px; top:380px;">Triangle</div>
+			<div class="shape _90" 	data-shape="Triangle" data-rotation="90" style="left:60px; top:500px;">90&#176; rotation</div>
 		</div>
 	</div>
 </body>
