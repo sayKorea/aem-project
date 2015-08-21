@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+<script>
+		//3초간격으로 데이터를 갱신한다고 봤을때 두가지 케이스 -> success 또는 fail형태로 EVENT 발생
+    //데이터구조
+/* {
+    "data": [
+        {
+            "id": "A",
+            "process": [
+                {
+                    "id": "B",
+                    "status": "SUCCESS"
+                }
+            ]
+        }
+    ]
+}*/
+		//전역변수선언영역
+    var successData = [ {id: "A" ,  name: "A", text: "A", level:0, status:""},
+				     						{id: "B" ,  name: "B", text: "B", level:1, status:"success"} ];
+		var failData = [ 		{id: "A" ,  name: "A", text: "A", level:0, status:""},
+				     						{id: "B" ,  name: "B", text: "B", level:1, status:"fail"} ];		    
+				     	
+		//생성할 HTML 템플릿		     	
+		var divTmpleate="<div id='#ID#' name='#NAME#' class='#CLASS#' status='#STATUS#'>#TEXT#</div>";
+		
+		//이전 아이디 기록용
+		var beforeId="";
+  	var dialog;
+		
+		//ONLOAD 스크립트
+		$(function(){
+			//Dialog 생성
+			dialog = $( "#dialog-message" ).dialog({
+     		autoOpen: false,
+      	height: 150,
+      	width: 200,
+      	modal: true,
+      	buttons: {
+        	"Restart": function(){
+        		alert("Execute Restart Batch");
+        		dialog.dialog( "close" );
+        	},
+        	Cancel: function() {
+          	dialog.dialog( "close" );
+        	}
+      	}
+    	});
+
+   
+    	refresh();
+		});
+		
+		function drawMainSuccess(){
+			$("#main").empty();
+			for(var i=0; i<successData.length; i++){
+				tmp = divTmpleate
+								.replace("#ID#",successData[i].id)
+								.replace("#NAME#",successData[i].name)
+								.replace("#CLASS#",successData[i].status)
+								.replace("#TEXT#",successData[i].text+" "+successData[i].status)
+								.replace("#STATUS#",successData[i].status);
+				if(successData[i].level == 0){
+					$("#main").append(tmp);
+				}else if(successData[i].level == 1){
+					$("#"+before).append(tmp);
+				}
+				before=successData[i].id;
+			}
+		}
+		function drawMainFails(){
+			//DIV MAIN에 그려진 HTML요소 삭제 해당위치에 다시그리기 위함
+			$("#main").empty();
+			for(var i=0; i<failData.length; i++){
+				tmp = divTmpleate
+								.replace("#ID#",failData[i].id)
+								.replace("#NAME#",failData[i].name)
+								.replace("#CLASS#",failData[i].status)
+								.replace("#TEXT#",failData[i].text+" "+failData[i].status)
+								.replace("#STATUS#",failData[i].status);
+				if(failData[i].level == 0){
+					$("#main").append(tmp);
+				}else if(failData[i].level == 1){
+					$("#"+before).append(tmp);
+					$(".fail").css("background-color","RED");
+					$("#"+failData[i].id).click(function(){
+						dialog.dialog("open");
+					});
+				}
+				before=failData[i].id;
+			}
+			
+			
+			
+			
+		}
+		
+		
+		function refresh(){
+			var cnt =0;
+			var timer =setInterval(function() {
+				cnt ++;
+    		drawMainSuccess();
+    		if( cnt == 5){
+    			drawMainFails();
+					clearInterval(timer);    
+				}
+			}, 1000);
+		}
+</script>
+</head>
+<body>
+<div id="dialog-message" title="Fail Batch Process">
+  <p>Restart Batch?</p>
+</div>
+
+<div id="main">main</div>
+
+
+
+</body>
+</html>
